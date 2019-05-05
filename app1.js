@@ -1,6 +1,6 @@
 const http = require('http');
-const hostname = 'leia.cs.spu.edu';
-const port = 3034;
+const hostname = 'localhost';
+const port = 3000;
 
 var friends = require("./friends.json"); // Once for all times
 
@@ -36,21 +36,26 @@ const server = http.createServer((request, response) => {
         '                                       <th scope="col">First Name</th> \n' +
         '                                       <th scope="col">Last Name</th> \n' +
         '                                       <th scope="col">Phone</th> \n' +
-        '                                       <th scope="col">Gender</th> \n' +
         '                               </tr> \n' +
         '                       </thead> \n' +
         '                       <tbody> \n'
     );
-	for (var key in friends)
-	        for (var f in friends[key])
+	for (var key in friends){
+          response.write(
+              '         <tr> \n' +
+              '         <td colspan = "3"> <strong>' + key.toUpperCase() + '</strong></td> \n' +
+              '         </tr> \n'
+
+            );
+	            for (var f in friends[key])
 	            response.write(
 	                '                               <tr> \n' +
 	                '                                       <td>' + friends[key][f]["firstName"] + '</td> \n' +
 	                '                                       <td>' + friends[key][f]["lastName"] + '</td> \n' +
 	                '                                       <td>' + friends[key][f]["phone"] + '</td> \n' +
-                  '                                       <td>' + friends[key] + '</td> \n' +
 	                '                               </tr> \n'
 	            );
+            }
 
 	    response.write(
 	        '                       </tbody> \n' +
